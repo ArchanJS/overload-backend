@@ -38,3 +38,15 @@ exports.searchVehicle=async(req,res)=>{
     }
 }
 
+// Search all vehicles
+exports.searchAllVehicles=async(req,res)=>{
+    try {
+        const vehicles=await Vehicle.find().sort({createAt:-1});        
+        // console.log(vehicles);
+        if(vehicles.length>0) res.status(200).json({vehicles});
+        else res.status(400).json({error:"No vehicle found!"});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error:"Something went wrong!"});
+    }
+}
